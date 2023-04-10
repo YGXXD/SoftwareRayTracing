@@ -83,21 +83,19 @@ namespace math
 		return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
 	}
 
-	inline vec3 random_in_unit_sphere() // 单位球内的向量
-	{
-		double theta = random_double(0, 2 * pi);
-		double phi = random_double(0, 2 * pi);
-		double r = random_double();
-
-		return vec3(r * sin(theta) * cos(phi), r * sin(theta) * sin(phi), r * cos(theta));
-	}
-
 	inline vec3 random_unit_vector()
 	{
-		double theta = random_double(0, 2 * pi);
+		double theta = random_double(0, pi);
 		double phi = random_double(0, 2 * pi);
 		
 		return vec3(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta));
+	}
+
+	inline vec3 random_in_unit_sphere() // 单位球内的向量
+	{
+		double r = cbrt(random_double());
+
+		return r * random_unit_vector();
 	}
 
 	inline vec3 random_in_hemisphere(const vec3& normal)
@@ -114,7 +112,7 @@ namespace math
 	inline vec3 random_in_unit_disk() //单位圆盘内向量
 	{
 		double theta = random_double(0, 2 * pi);
-		double r = random_double();
+		double r = sqrt(random_double());
 
 		return vec3(cos(theta), sin(theta), 0);
 	}
